@@ -1,7 +1,7 @@
-/*******************************************************************************
+/*
  *    sora-editor - the awesome code editor for Android
  *    https://github.com/Rosemoe/sora-editor
- *    Copyright (C) 2020-2024  Rosemoe
+ *    Copyright (C) 2020-2025  Rosemoe
  *
  *     This library is free software; you can redistribute it and/or
  *     modify it under the terms of the GNU Lesser General Public
@@ -20,23 +20,20 @@
  *
  *     Please contact Rosemoe by email 2073412493@qq.com if you need
  *     additional information or have any questions
- ******************************************************************************/
-@SuppressWarnings("unused")
-object Versions {
-    // Project versions
-    private const val version = "0.23.5"
-    const val versionCode = 86
+ */
+package io.github.rosemoe.sora.util.regex;
 
-    val versionName by lazy {
-        if (CI.isCiBuild) {
-            "$version-${CI.commitHash}-SNAPSHOT"
-        } else version
+public class RegexBackrefGrammar {
+
+    public final static RegexBackrefGrammar DEFAULT = new RegexBackrefGrammar('$', '\\');
+
+    public final char backrefStartChar;
+
+    public final char escapeChar;
+
+    public RegexBackrefGrammar(char backrefStartChar, char escapeChar) {
+        this.backrefStartChar = backrefStartChar;
+        this.escapeChar = escapeChar;
     }
 
-    // Platform & Tool versions
-    const val buildToolsVersion = "35.0.1"
-    const val compileSdkVersion = 35
-    const val minSdkVersion = 21
-    const val minSdkVersionHighApi = 26
-    const val targetSdkVersion = 35
 }

@@ -1,7 +1,7 @@
-/*******************************************************************************
+/*
  *    sora-editor - the awesome code editor for Android
  *    https://github.com/Rosemoe/sora-editor
- *    Copyright (C) 2020-2024  Rosemoe
+ *    Copyright (C) 2020-2025  Rosemoe
  *
  *     This library is free software; you can redistribute it and/or
  *     modify it under the terms of the GNU Lesser General Public
@@ -20,23 +20,45 @@
  *
  *     Please contact Rosemoe by email 2073412493@qq.com if you need
  *     additional information or have any questions
- ******************************************************************************/
-@SuppressWarnings("unused")
-object Versions {
-    // Project versions
-    private const val version = "0.23.5"
-    const val versionCode = 86
+ */
+package io.github.rosemoe.sora.util.regex;
 
-    val versionName by lazy {
-        if (CI.isCiBuild) {
-            "$version-${CI.commitHash}-SNAPSHOT"
-        } else version
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.regex.Matcher;
+
+public class RegexBackrefToken {
+
+    private final boolean isRef;
+
+    private final String text;
+
+    private final int group;
+
+    public RegexBackrefToken(boolean isRef, String text, int group) {
+        this.isRef = isRef;
+        this.text = text;
+        this.group = group;
     }
 
-    // Platform & Tool versions
-    const val buildToolsVersion = "35.0.1"
-    const val compileSdkVersion = 35
-    const val minSdkVersion = 21
-    const val minSdkVersionHighApi = 26
-    const val targetSdkVersion = 35
+    public String getReplacementText(@NonNull Matcher matcher) {
+        if (isReference()) {
+            return matcher.group(getGroup());
+        }
+        return text;
+    }
+
+    public boolean isReference() {
+        return isRef;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
 }
